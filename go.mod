@@ -8,7 +8,7 @@ require (
 	github.com/prometheus/common v0.60.1
 	github.com/prometheus/exporter-toolkit v0.13.0
 	github.com/tidwall/gjson v1.18.0
-	google.golang.org/grpc v1.67.1
+	google.golang.org/grpc v1.69.4
 	google.golang.org/protobuf v1.35.1
 )
 
