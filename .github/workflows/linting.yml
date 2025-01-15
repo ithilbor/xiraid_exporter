@@ -1,0 +1,33 @@
+---
+name: linting
+on:
+  push:
+    paths:
+      - "go.sum"
+      - "go.mod"
+      - "**.go"
+      - ".github/workflows/linting.yml"
+      - ".golangci.yml"
+  pull_request:
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  linting:
+    permissions:
+      contents: read  # for actions/checkout to fetch code
+      pull-requests: read  # for golangci/golangci-lint-action to fetch pull requests
+    name: golangci-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.2'
+      - name: Lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          args: --verbose
+          version: v1.62.0
