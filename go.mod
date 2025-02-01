@@ -9,7 +9,7 @@ require (
 	github.com/prometheus/exporter-toolkit v0.13.0
 	github.com/tidwall/gjson v1.18.0
 	google.golang.org/grpc v1.67.1
-	google.golang.org/protobuf v1.35.1
+	google.golang.org/protobuf v1.36.4
 )
 
 require (
