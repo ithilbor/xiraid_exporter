@@ -109,11 +109,15 @@ func NewRaidShowCollector(logger *slog.Logger, xrClient xrprotos.XRAIDServiceCli
 func fetchXiraidData(xrClient xrprotos.XRAIDServiceClient) (gjson.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	raidShowRequest := &xrprotos.RaidShow{}
+	// Supported units are 's', 'k', 'm', 'g'
+	// NB: Change the parsSize function to export
+	// the data correctly if you change the unit type
+	units := "g"
+	raidShowRequest := &xrprotos.RaidShow{Units: &units}
 	r1, err := xrClient.RaidShow(ctx, raidShowRequest)
 	if err != nil {
 		return gjson.Result{}, fmt.Errorf("could not get RAID entries: %w", err)
-	}
+	}		
 	return gjson.Parse(r1.GetMessage()), nil
 }
 
