@@ -26,6 +26,12 @@ archives:
       {{- else if eq .Arch "386" }}i386
       {{- else }}{{ .Arch }}{{ end }}
       {{- if .Arm }}v{{ .Arm }}{{ end }}
+    files:
+      - CODE_OF_CONDUCT.md
+      - LICENSE.md
+      - README.md
+      - NOTICE.md
+    wrap_in_directory: true  # This ensures everything is inside a subdirectory
     # use zip for windows archives
     format_overrides:
       - goos: windows

@@ -26,11 +26,11 @@ var (
 var (
 	xrSrvHostname = kingpin.Flag(
 		"xiraid-srv-hostname",
-		"The hostname of the server where xiraid runs.",
+		"The hostname of the gRPC xiRAID server.",
 	).Default("localhost").String()
 	xrSrvPort = kingpin.Flag(
 		"xiraid-srv-port",
-		"The port of the xiraid server.",
+		"The port of the gRPC xiRAID server.",
 	).Default("6066").String()
 	xrCertPath = kingpin.Flag(
 		"xiraid-cert-path",

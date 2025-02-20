@@ -15,13 +15,19 @@ Compatibility matrix:
 
 | **xiraid_exporter**       | **xiRAID**       | **Openssl**        |
 |---------------------------|------------------|--------------------|
-| 1.0.0                     | 4.1.0            | 3.0.7              |
+| 1.0.0                     | 4.2.0            | 3.0.7              |
 
 These version are verified so make sure to used them for your production installation.
 
 ### xiRAID installation
 
 To install the xiRAID and configure it at your needs follow the [official documentation guide](https://xinnor.io/resources/xiraid-classic/) by selecting the correct version.
+
+After the installation of the xiRAID accept the EULA by usign this command:
+
+```bash
+xicli settings eula modify -s accepted
+```
 
 ### Openssl installation
 
@@ -33,7 +39,13 @@ Then in order to make the exporter work we need to chenge the certificats using 
 sudo openssl genrsa -out ca.key 2048
 sudo openssl req -new -x509 -days 365 -key ca.key -subj /C=IL/ST=Haifa/L=Haifa/O=XINNOR/OU=IT/CN=localhost/emailAddress=request@xinnor.io -out ca-cert.crt
 sudo openssl req -newkey rsa:2048 -nodes -keyout server-key.key -subj /C=IL/ST=Haifa/L=Haifa/O=XINNOR/OU=IT/CN=localhost/emailAddress=request@xinnor.io -out server-cert.csr
-sudo openssl x509 -req -extfile <(printf "subjectAltName=DNS:localhost,DNS:*.e4red,IP:0.0.0.0") -days 365 -in server-cert.csr -CA ca-cert.crt -CAkey ca.key -CAcreateserial -out server-crt.crt
+sudo openssl x509 -req -extfile <(printf "subjectAltName=DNS:localhost,DNS:*.e4red,IP:0.0.0.0") -days 365 -in server-cert.csr -CA ca-cert.crt -CAkey ca.key -CAcreateserial -out server-cert.crt
+
+# Note: by creating the certificates as a root you can encaounter a problem related to
+# the temporary creation of a file descriptor (/dev/fd/*) because of this directive: <(printf "subjectAltName=...")
+# this is caused, when you run the command with sudo, because the /dev/fd/* file descriptors may not be available due to how sudo handles file descriptors
+# In order to avoid this problem create the new certificates without beeing root or using sudo and then
+# move the new certificats in `/etc/xraid/crt` with the right permissions.
 
 # Restart xiRAID services to use new certificates
 systemctl restart xiraid.target

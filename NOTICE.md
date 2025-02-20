@@ -27,10 +27,15 @@ This product includes components licensed under the following terms:
    - Copyright: Google Inc.
    - URL: https://github.com/grpc/grpc-go
    
-- protobuf
+- protobuf-go plugin
    - License: BSD 3-Clause "New" or "Revised" License
    - Copyright: Google Inc.
    - URL: https://github.com/protocolbuffers/protobuf-go
+
+- protobuf
+   - License: BSD 3-Clause "New" or "Revised" License
+   - Copyright: Google Inc.
+   - URL: https://github.com/protocolbuffers/protobuf
 
 - prometheus/client_golang
    - License: Apache License 2.0
