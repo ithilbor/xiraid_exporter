@@ -1,6 +1,7 @@
 ---
 name: linting
 on:
+  pull_request:
   push:
     paths:
       - "go.sum"
@@ -8,8 +9,6 @@ on:
       - "**.go"
       - ".github/workflows/linting.yml"
       - ".golangci.yml"
-  pull_request:
-  # Allow manual trigger
   workflow_dispatch:
 
 jobs:

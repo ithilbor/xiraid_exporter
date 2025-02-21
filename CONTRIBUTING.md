@@ -65,7 +65,7 @@ If you want a stable installation please use these versions:
 | OpenSSL                              | `3.0.7`           |
 | xiRAID                               | `4.2.0`           |
 | Go compiler                          | `1.23.2`          |
-| Goreleaser                           | `2.4.8`           |
+| Goreleaser                           | `2.7.0`           |
 | Golangci-lint                        | `1.62.0`          |
 | ProtocolBuffer                       | `29.3.0`          |
 
