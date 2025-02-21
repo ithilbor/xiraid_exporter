@@ -28,7 +28,6 @@ archives:
       {{- else }}{{ .Arch }}{{ end }}
       {{- if .Arm }}v{{ .Arm }}{{ end }}
     files:
-      - CODE_OF_CONDUCT.md
       - LICENSE.md
       - README.md
       - NOTICE.md
