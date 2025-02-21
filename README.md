@@ -15,7 +15,7 @@ Compatibility matrix:
 
 | **xiraid_exporter**       | **xiRAID**       | **Openssl**        |
 |---------------------------|------------------|--------------------|
-| 1.0.0                     | 4.2.0            | 3.0.7              |
+| 1.1.0                     | 4.2.0            | 3.0.7              |
 
 These version are verified so make sure to used them for your production installation.
 

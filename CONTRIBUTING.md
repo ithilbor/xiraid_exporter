@@ -62,6 +62,7 @@ If you want a stable installation please use these versions:
 
 | **Software/compilators/libraries**   | **Version**       |
 |--------------------------------------|-------------------|
+| xiraid_exporter                      | `1.1.0`           |
 | OpenSSL                              | `3.0.7`           |
 | xiRAID                               | `4.2.0`           |
 | Go compiler                          | `1.23.2`          |
