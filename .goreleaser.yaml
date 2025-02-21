@@ -44,7 +44,7 @@ checksum:
     {{ .ProjectName }}_v{{ .Version }}_checksums.txt
   algorithm: sha256
 snapshot:
-  name_template: >-
+  version_template: >-
     {{ incpatch .Version }}-next
 changelog:
   sort: asc
