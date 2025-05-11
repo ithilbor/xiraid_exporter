@@ -11,6 +11,7 @@ import (
 	"log/slog"
 	"strconv"
 	"time"
+	"strings"
 	// Xiraid exporter
 	xrprotos "github.com/ironcub3/xiraid_exporter/protos"
 	// Prometheus
@@ -130,19 +131,21 @@ func (collector *raidShowCollector) Update(ch chan<- prometheus.Metric) error {
 	data.ForEach(func(key, value gjson.Result) bool {
 		// Static data
 		raidName := key.String()
-		uuid := value.Get("uuid").String()
+		uuid := "None"
+		if value.Get("uuid").String() != "" {
+			uuid = value.Get("uuid").String()
+		}
 		level := value.Get("level").String()
 		sparepoolName := value.Get("sparepool").String()
 		// RAID info ( static data )
 		ch <- prometheus.MustNewConstMetric(collector.raidInfo, prometheus.GaugeValue,
 			 1, raidName, uuid, level, sparepoolName)
 		// RAID state
-		// Check the array length
 		mainStateArray := value.Get("state").Array()
 		if len(mainStateArray) > 0 {
-			mainState := mainStateArray[0].String()
+			mainState := strings.ToLower(mainStateArray[0].String())
 			if mainState == "" {
-				mainState = "unknown"
+				mainState = "None"
 			}
 			stateVal := 0.0
 			if mainState == "online" {
@@ -163,8 +166,11 @@ func (collector *raidShowCollector) Update(ch chan<- prometheus.Metric) error {
 		if len(stateDetailArray) > 1 {
 			stateDetail := value.Get("state").Array()[1].String()
 			if stateDetail == "" {
-				stateDetail = "unknown"
+				stateDetail = "None"
 			}
+			ch <- prometheus.MustNewConstMetric(collector.stateDetail, prometheus.GaugeValue, 1, raidName, uuid, stateDetail)
+		} else {
+			stateDetail := "None"
 			ch <- prometheus.MustNewConstMetric(collector.stateDetail, prometheus.GaugeValue, 1, raidName, uuid, stateDetail)
 		}
 		// Active status
@@ -199,14 +205,20 @@ func (collector *raidShowCollector) Update(ch chan<- prometheus.Metric) error {
 		// State of each device in the RAID array
 		serials := value.Get("serials").Array()
 		devices := value.Get("devices").Array()
+		deviceName := "None"
+		deviceSerial := "None"
+		stateVal := 0.0
+		if len(devices) == 0 {
+			ch <- prometheus.MustNewConstMetric(
+		        collector.deviceState, prometheus.GaugeValue, stateVal, raidName, 
+				uuid, deviceName, deviceSerial)
+		}
 		for i, device := range devices {
-		    deviceSerial := "unknown_serial"
 			if i < len(serials) {
 				deviceSerial = serials[i].String()
 			}
-		    deviceName := device.Array()[1].String()
-		    state := device.Array()[2].Array()[0].String()
-		    stateVal := 0.0
+		    deviceName = device.Array()[1].String()
+		    state := strings.ToLower(device.Array()[2].Array()[0].String())
 		    if state == "online" {
 		        stateVal = 1.0
 		    }
