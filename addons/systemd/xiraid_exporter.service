@@ -1,0 +1,29 @@
+[Unit]
+Description=xiRAID to Prometheus exporter service
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/sbin/xiraid_exporter \
+    '--xiraid-srv-hostname=localhost' \
+    '--xiraid-srv-port=6066' \
+    '--xiraid-cert-path=/etc/xraid/crt/server-cert.crt' \
+    '--metrics-endpoint=/metrics' \
+    '--collector.xiraid_license_show' \
+    '--collector.xiraid_raid_show' \
+    '--no-prometheus-default-metrics' \
+    '--max-concurrent-requests=40' \
+    '--gomaxprocs=1' \
+    '--web.listen-address=:9505' \
+    '--log.level=info' \
+    '--log.format=logfmt'
+
+SyslogIdentifier=xiraid_exporter
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target

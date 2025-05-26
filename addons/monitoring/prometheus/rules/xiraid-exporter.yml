@@ -1,0 +1,52 @@
+---
+# The `for:` directive manage the delay time to fire the alert
+groups:
+  - name: xiraid_exporter
+    rules:
+      - alert: raid_offline_status
+        expr: xiraid_raid_state == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: The RAID {{ $labels.raid_name }} is **Offline**.
+          description: >-
+            The RAID {{ $labels.raid_name }} is **Offline** ( Status = {{ $value }} ).
+            The cause can be due to multiple factors, please check it
+            on instance: {{ $labels.instance }}.
+
+      - alert: raid_other_status
+        expr: xiraid_raid_state > 1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: The RAID {{ $labels.raid_name }} is currently in an **Inconsistent** state.
+          description: >-
+            The RAID {{ $labels.raid_name }} is in **Other** ( Status = {{ $value }} ).
+            The cause can be due to multiple factors, please check it
+            on instance: {{ $labels.instance }}.
+
+      - alert: raid_device_status
+        expr: xiraid_raid_device_state == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: The device {{ $labels.device }} is currently **Offline**.
+          description: >-
+            The device {{ $labels.device }} is **Offline** ( Status = {{ $value }} ).
+            The cause can be due to multiple factors, please check it
+            on instance: {{ $labels.instance }}.
+
+      - alert: raid_active
+        expr: xiraid_raid_active == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: The RAID {{ $labels.raid_name }} is currently **Not Active**.
+          description: >-
+            The RAID {{ $labels.raid_name }} is **Not Active** ( Status = {{ $value }} ).
+            The cause can be due to multiple factors, please check it
+            on instance: {{ $labels.instance }}.

@@ -62,7 +62,7 @@ If you want a stable installation please use these versions:
 
 | **Software/compilators/libraries**   | **Version**       |
 |--------------------------------------|-------------------|
-| xiraid_exporter                      | `1.1.0`           |
+| xiraid_exporter                      | `1.2.0`           |
 | OpenSSL                              | `3.0.7`           |
 | xiRAID                               | `4.2.0`           |
 | Go compiler                          | `1.23.2`          |
@@ -98,7 +98,7 @@ The `xiraid_exporter` is not a general monitoring agent. Its sole purpose is onl
 expose the xiRAID metrics.
 
 A Collector may only use grpc calls to retrieve xiRAID metrics.
-It may not require root privileges. Running external commands is 
+It may not require root privileges. Running external commands is
 not allowed for performance and reliability reasons.
 
 The `xiraid_exporter` main purpose is to support all the xiRAID metrics provvided by the protobuffers

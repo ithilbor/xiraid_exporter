@@ -15,7 +15,7 @@ Compatibility matrix:
 
 | **xiraid_exporter**       | **xiRAID**       | **Openssl**        |
 |---------------------------|------------------|--------------------|
-| 1.1.0                     | 4.2.0            | 3.0.7              |
+| 1.2.0                     | 4.2.0            | 3.0.7              |
 
 These version are verified so make sure to used them for your production installation.
 
@@ -84,9 +84,37 @@ go_gc_duration_seconds{quantile="0.5"} 5.846e-05
 
 The `xiraid_exporter` will listens on HTTP port 9505 by default. See the `--help` output for more options.
 
+## Add-ons
+
+To help you test and simplify the usage of this exporter, the [addons](./addons/) folder includes:
+
+- A basic [Systemd service file](./addons/systemd/xiraid_exporter.service) that you can modify to suit your needs.
+- A simple [Grafana dashboard](./addons/monitoring/grafana/dashboards/xiraid.json) for visualizing the metrics in an intuitive UI.
+- A starter set of [Prometheus alert rules](./addons/monitoring/prometheus/rules/xiraid-exporter.yml) to notify you of any issues while testing the xiRAID software.
+
+To install and run the service, follow these steps:
+
+Copy the service file to `/etc/systemd/system/xiraid_exporter.service`
+
+```bash
+sudo cp addons/systemd/xiraid_exporter.service /etc/systemd/system/
+```
+
+Then reload the systemd daemon:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+Finally, enable and start the service:
+
+```bash
+sudo systemctl enable --now xiraid_exporter
+```
+
 ## Known installation problems
 
-* Since the xiRAID default TLS certificates are not compatible with the grpc TLS client creation bacause they use an old standard
+- Since the xiRAID default TLS certificates are not compatible with the grpc TLS client creation bacause they use an old standard
   it's mandatory to create new certificates as mentioned above.
 
 ## Collectors
@@ -111,7 +139,6 @@ Description of the collectors:
 | license_show | Shows the license informations like: `hwkey`, `disk_in_use`, `license_status` etc.. |
 | raid_show  | Shows the informations releted to RAIDs like: `riad_name`, `raid_uuid`, `devices`, `device_status`, `raid_status`, etc.. |
 
-
 ## Contributing
 
 If you want to contribute to this reposiotry pleaase see the [CONTRIBUTIng.md](./CONTRIBUTING.md) file for details.
@@ -121,6 +148,7 @@ If you want to contribute to this reposiotry pleaase see the [CONTRIBUTIng.md](.
 This project relies on the Contributor Covenant Code of Conduct. See the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) file for details.
 
 ## License
+
 This project is licensed under the Apache License, Version 2.0. See the [LICENSE.md](./LICENSE) file for details.
 
 ## Authors
