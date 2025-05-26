@@ -28,6 +28,7 @@ archives:
       {{- else }}{{ .Arch }}{{ end }}
       {{- if .Arm }}v{{ .Arm }}{{ end }}
     files:
+      - addons/**/*
       - LICENSE.md
       - README.md
       - NOTICE.md
