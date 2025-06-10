@@ -15,7 +15,7 @@ Compatibility matrix:
 
 | **xiraid_exporter**       | **xiRAID**       | **Openssl**        |
 |---------------------------|------------------|--------------------|
-| 1.2.0                     | 4.2.0            | 3.0.7              |
+| 1.2.0                     | 4.2.0            | 3.X                |
 
 These version are verified so make sure to used them for your production installation.
 
@@ -35,6 +35,9 @@ To install Openssl follow the [official documentation guide](https://github.com/
 Then in order to make the exporter work we need to chenge the certificats using these commands:
 
 ```bash
+# Move into Xiraid cert directory
+cd /etc/xraid/crt
+
 # Create new certificates for xiRAID
 sudo openssl genrsa -out ca.key 2048
 sudo openssl req -new -x509 -days 365 -key ca.key -subj /C=IL/ST=Haifa/L=Haifa/O=XINNOR/OU=IT/CN=localhost/emailAddress=request@xinnor.io -out ca-cert.crt
