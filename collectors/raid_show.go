@@ -13,7 +13,7 @@ import (
 	"time"
 	"strings"
 	// Xiraid exporter
-	xrprotos "github.com/ironcub3/xiraid_exporter/protos"
+	xrprotos "github.com/ithilbor/xiraid_exporter/protos"
 	// Prometheus
 	"github.com/prometheus/client_golang/prometheus"
 	// Gjson

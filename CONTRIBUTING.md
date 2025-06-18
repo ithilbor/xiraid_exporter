@@ -1,6 +1,6 @@
 # Contributing
 
-E4 Computer Engineering uses GitHub to manage reviews of pull requests.
+This project uses GitHub to manage reviews of pull requests.
 
 * If you have a trivial fix or improvement, go ahead and create a pull request,
   addressing (with `@...`) the maintainer of this repository (see
@@ -62,9 +62,9 @@ If you want a stable installation please use these versions:
 
 | **Software/compilators/libraries**   | **Version**       |
 |--------------------------------------|-------------------|
-| xiraid_exporter                      | `1.2.0`           |
-| OpenSSL                              | `3.0.7`           |
-| xiRAID                               | `4.2.0`           |
+| xiraid_exporter                      | `2.0.0`           |
+| OpenSSL                              | `3.*`             |
+| xiRAID                               | `4.3.0`           |
 | Go compiler                          | `1.23.2`          |
 | Goreleaser                           | `2.7.0`           |
 | Golangci-lint                        | `1.62.0`          |
@@ -73,6 +73,10 @@ If you want a stable installation please use these versions:
 Viceversa feel free to test other version and to update them if needed but **remeber** to put
 these changes on the pull request description.
 
+### Update software and libraries
+
+#### xiRAID
+
 If you want to use a new version of xiRAID that introduce chenges to the protocol buffers and you need to regenerate the GO code use these commands:
 **NB: sobstitute the <...> with the appropiate value**
 
@@ -80,9 +84,9 @@ If you want to use a new version of xiRAID that introduce chenges to the protoco
 # Check where are the protocol buffers ( tiplically they are in: /var/lib/xraid/gRPC/protobuf )
 rpm -ql <xiraid-package> | grep -E '^*.proto$'
 
-# Add in each of these files after the directve `syntax = "proto3"` add the line: `option go_package = "github.com/ironcub3/xiraid_exporter`
+# Add in each of these files after the directve `syntax = "proto3"` add the line: `option go_package = "github.com/ithilbor/xiraid_exporter`
 sudo sed -i '/^syntax = "proto3";$/a\
-option go_package = "github.com/ironcub3/xiraid_exporter";' </path/to/xiraid/proto/buffer>/*.proto
+option go_package = "github.com/ithilbor/xiraid_exporter";' </path/to/xiraid/proto/buffer>/*.proto
 
 # Check if the line was added
 grep -h '^option' </path/to/xiraid/proto/buffer>/*.proto
@@ -90,6 +94,17 @@ grep -h '^option' </path/to/xiraid/proto/buffer>/*.proto
 # Go into the main folder of the GitHub project and generate the new GO code from the protocol buffer
 cd </path/to/xiraid/github/project>
 protoc -I</path/to/xiraid/proto/buffer> --go_out=./protos --go_opt=paths=source_relative --go-grpc_out=./protos --go-grpc_opt=paths=source_relative </path/to/xiraid/proto/buffer>/*.proto
+```
+
+#### Go packages
+
+If you need to test new version of the go packages or change them here are few useful commands to manage them:
+
+```bash
+# Update all the go packages
+go get -u
+# Add missing and remove unused modules
+go mod tidy
 ```
 
 ## Collector Implementation Guidelines

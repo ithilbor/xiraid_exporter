@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 	// Xiraid exporter
-	xrprotos "github.com/ironcub3/xiraid_exporter/protos"
+	xrprotos "github.com/ithilbor/xiraid_exporter/protos"
 	// Kingpin
 	"github.com/alecthomas/kingpin/v2"
 	// Grpc
