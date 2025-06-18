@@ -6,13 +6,13 @@ package collector
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
+	"log"
 	"log/slog"
-	"strings"
 	"time"
+
 	// Xiraid exporter
-	xrprotos "github.com/ironcub3/xiraid_exporter/protos"
+	xrprotos "github.com/ithilbor/xiraid_exporter/protos"
 	// Prometheus
 	"github.com/prometheus/client_golang/prometheus"
 	// Gjson
@@ -53,7 +53,7 @@ func NewLicenseShowCollector(logger *slog.Logger, xrClient xrprotos.XRAIDService
         licenseInfo: prometheus.NewDesc(
             prometheus.BuildFQName(namespace, "license", "info"),
             "License information",
-            []string{"hwkey", "license_key", "license_version", "license_crypto_version",
+            []string{"hwkey", "kernel_version", "license_key", "license_version", "license_crypto_version",
              "license_status", "license_creation", "license_expiration"}, nil,
         ),
         levels: prometheus.NewDesc(
@@ -92,69 +92,44 @@ func (collector *licenseShowCollector) Update(ch chan<- prometheus.Metric) error
     if err != nil {
         return fmt.Errorf("could not get RAID entries: %w", err)
     }
-    // Convert the raw data into a JSON string
-    jsonData, err := textToJSON(data)
-    if err != nil {
-        return fmt.Errorf("could not convert data to JSON: %w", err)
-    }
     // Hardware key
-    hwkey := getOrDefault(jsonData, "hwkey")
+    hwkey := getOrDefault(data, "hwkey")
     // license info
-    licenseKey := getOrDefault(jsonData, "license_key")
-    licenseVersion := getOrDefault(jsonData,"version")
-    licenseCryptoVersion := getOrDefault(jsonData, "crypto_version")
-    licenseStatus := getOrDefault(jsonData, "status")
-    licenseCreation := getOrDefault(jsonData, "created")
-    licenseExpiration := getOrDefault(jsonData, "expired")
-    ch <- prometheus.MustNewConstMetric(collector.licenseInfo, prometheus.GaugeValue, 1, hwkey, licenseVersion, 
+    kernelVersion := getOrDefault(data, "Kernel version")
+    log.Print(kernelVersion)
+    licenseKey := getOrDefault(data, "license_key")
+    licenseVersion := getOrDefault(data,"version")
+    licenseCryptoVersion := getOrDefault(data, "crypto_version")
+    licenseStatus := getOrDefault(data, "status")
+    licenseCreation := getOrDefault(data, "created")
+    licenseExpiration := getOrDefault(data, "expired")
+    ch <- prometheus.MustNewConstMetric(collector.licenseInfo, prometheus.GaugeValue, 1, hwkey, kernelVersion, licenseVersion, 
         licenseCryptoVersion, licenseKey, licenseStatus, licenseCreation, licenseExpiration)
-    //levels
-    levels := gjson.Get(jsonData, "levels").String()
+    // levels
+    levels := gjson.Get(data, "levels").String()
     if levels != "" {
-        levelsVal := gjson.Get(jsonData, "levels").Float()
+        levelsVal := gjson.Get(data, "levels").Float()
         ch <- prometheus.MustNewConstMetric(collector.levels, prometheus.GaugeValue, levelsVal, hwkey)  
     }
     // total disks
-    disks := gjson.Get(jsonData, "disks").String()
+    disks := gjson.Get(data, "disks").String()
     if disks != "" {
-        disksVal := gjson.Get(jsonData, "disks").Float()
+        disksVal := gjson.Get(data, "disks").Float()
         ch <- prometheus.MustNewConstMetric(collector.disks, prometheus.GaugeValue, disksVal, hwkey)
     }
     // disks in use
-    disksInUse := gjson.Get(jsonData, "disks_in_use").String()
+    disksInUse := gjson.Get(data, "disks_in_use").String()
     if disksInUse != "" {
-        disksInUseVal := gjson.Get(jsonData, "disks_in_use").Float()
+        disksInUseVal := gjson.Get(data, "disks_in_use").Float()
         ch <- prometheus.MustNewConstMetric(collector.disksInUse, prometheus.GaugeValue, disksInUseVal, hwkey)
     }
     return nil
 }
 
-// textToJSON function that reads lines and creates a JSON structure
-func textToJSON(data string) (string, error) {
-    jsonMap := make(map[string]string)
-    lines := strings.Split(data, "\n")
-    for _, line := range lines {
-        line = strings.TrimSpace(line)
-        if strings.Contains(line, ":") {
-            parts := strings.SplitN(line, ":", 2)
-            key := strings.TrimSpace(parts[0])
-            value := strings.TrimSpace(parts[1])
-            // Convert key to lowercase and replace spaces with underscores
-            formattedKey := strings.ToLower(strings.ReplaceAll(key, " ", "_"))
-            jsonMap[formattedKey] = value
-        }
-    }
-    jsonData, err := json.Marshal(jsonMap)
-    if err != nil {
-        return "", fmt.Errorf("could not marshal to JSON: %w", err)
-    }
-    return string(jsonData), nil
-}
-
-func getOrDefault(jsonData, key string) string { 
-    value := gjson.Get(jsonData, key)
+func getOrDefault(data, key string) string { 
+    value := gjson.Get(data, key)
     if !value.Exists() {
-        return ""
+        return "Not found"
     }
     return value.String()
 }

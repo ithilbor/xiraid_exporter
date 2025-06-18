@@ -1,8 +1,8 @@
 # NOTICE
 
-This product includes software developed by Federico Ferrari [GitHub](https://github.com/IronCub3) for [E4 Computer Engineering](https://www.e4company.com/).
+This product includes software developed by Federico Ferrari [GitHub](https://github.com/ithilbor).
 
-Copyright (c) 2025 E4 Computer Engineering.
+Copyright (c) 2025 Federico Ferrari.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@ You may obtain a copy of the License at:
     http://www.apache.org/licenses/LICENSE-2.0
 
 This software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the [License](./LICENSE.md) for the specific language governing permissions and limitations under the License.
 
 ## Third-Party Notices
 

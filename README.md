@@ -15,7 +15,7 @@ Compatibility matrix:
 
 | **xiraid_exporter**       | **xiRAID**       | **Openssl**        |
 |---------------------------|------------------|--------------------|
-| 1.2.0                     | 4.2.0            | 3.0.7              |
+| 2.0.0                     | 4.3.0            | 3.*                |
 
 These version are verified so make sure to used them for your production installation.
 
@@ -35,6 +35,12 @@ To install Openssl follow the [official documentation guide](https://github.com/
 Then in order to make the exporter work we need to chenge the certificats using these commands:
 
 ```bash
+# Move into xiRAID certificate directory
+cd /etc/xraid/crt
+
+# Optional: do a backup copy of the old certificates
+cp -r ./* ../crt_orig
+
 # Create new certificates for xiRAID
 sudo openssl genrsa -out ca.key 2048
 sudo openssl req -new -x509 -days 365 -key ca.key -subj /C=IL/ST=Haifa/L=Haifa/O=XINNOR/OU=IT/CN=localhost/emailAddress=request@xinnor.io -out ca-cert.crt
@@ -60,7 +66,7 @@ To install the xiraid exporter follow these steps:
 
 ```bash
 # NOTE: Replace the placeholders <VERSION>, <OS>, and <ARCH> with the once aviable.
-wget https://github.com/E4-Computer-Engineering/xiraid_exporter/releases/download/v<VERSION>/xiraid_exporter_<OS>_<ARCH>.tar.gz
+wget https://github.com/ithilbor/xiraid_exporter/releases/download/v<VERSION>/xiraid_exporter_<OS>_<ARCH>.tar.gz
 tar xvfz xiraid_exporter_*.tar.gz
 ./xiraid_exporter
 ```
@@ -141,7 +147,7 @@ Description of the collectors:
 
 ## Contributing
 
-If you want to contribute to this reposiotry pleaase see the [CONTRIBUTIng.md](./CONTRIBUTING.md) file for details.
+If you want to contribute to this reposiotry pleaase see the [CONTRIBUTING.md](./CONTRIBUTING.md) file for details.
 
 ## Code of conduct
 
@@ -149,12 +155,12 @@ This project relies on the Contributor Covenant Code of Conduct. See the [CODE_O
 
 ## License
 
-This project is licensed under the Apache License, Version 2.0. See the [LICENSE.md](./LICENSE) file for details.
+This project is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3. See the [LICENSE.md](./LICENSE) file for details.
 
 ## Authors
 
-This software is developed by Federico Ferrari, <federico.ferr25@gmail.com>, [GitHub](https://github.com/IronCub3), for [E4 Computer Engineering](https://www.e4company.com/).
+This software is developed by Federico Ferrari, <federico.ferr25@gmail.com>, [GitHub](https://github.com/ithilbor).
 
 ## Credits
 
-This project includes some logic adapted from the [node_exporter](https://github.com/prometheus/node_exporter) project under the Apache License 2.0. Special thanks to the Prometheus Community for their work.
+This project includes some logic adapted from the [node_exporter](https://github.com/prometheus/node_exporter) project under the Apache License 2.0. A special thanks to the Prometheus Community for their work.

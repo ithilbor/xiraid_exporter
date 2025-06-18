@@ -65,18 +65,6 @@
       "keepTime": false,
       "tags": [],
       "targetBlank": true,
-      "title": "E4 Company",
-      "tooltip": "",
-      "type": "link",
-      "url": "https://www.e4company.com/"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
       "title": "Xinnor xiRAID",
       "tooltip": "",
       "type": "link",
@@ -98,7 +86,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "<div style=\"\n  background-color: #185265 !important;\n  color: #ffffff !important;\n  text-align: center;\n  padding: 2rem;\n  max-width: auto;\n  margin: 0 auto;\n\">\n  <h1 style=\"\n    margin: 0.2em 0;\n    text-transform: uppercase;\n    line-height: 1.2;\n    font-size: 2.5rem;\n  \">\n    ${cluster_name} Cluster\n  </h1>\n\n  <p style=\"\n    margin: 0.2em 0;\n    line-height: 1.2;\n    font-size: 1.2rem;\n    color: #ffd200;\n  \">You're watching xiRAID nodes(s):<br/>\n    ${xiraid_node}\n  </p>\n\n  <div style=\"\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    gap: 1.5rem;\n    margin: 1.5rem 0;\n  \">\n    <img\n      src=\"https://www.e4company.com/wp-content/uploads/logo-e4-company-white.svg\"\n      alt=\"E4 Company\"\n      width=\"70\"\n      style=\"display: block;\"\n    >\n    <img\n      src=\"https://xinnor.io/img/logo-xinnor.svg\"\n      alt=\"Xinnor\"\n      width=\"200\"\n      style=\"display: block;\"\n    >\n  </div>\n\n  <p style=\"\n    text-align: right;\n    font-style: italic;\n    opacity: 0.8;\n    margin-top: 2rem;\n  \">\n    #whenperformancematters\n  </p>\n</div>\n",
+        "content": "<div style=\"\n  background-color: #185265 !important;\n  color: #ffffff !important;\n  text-align: center;\n  padding: 2rem;\n  max-width: auto;\n  margin: 0 auto;\n\">\n  <h1 style=\"\n    margin: 0.2em 0;\n    text-transform: uppercase;\n    line-height: 1.2;\n    font-size: 2.5rem;\n  \">\n    ${cluster_name} Cluster\n  </h1>\n\n  <p style=\"\n    margin: 0.2em 0;\n    line-height: 1.2;\n    font-size: 1.2rem;\n    color: #ffd200;\n  \">You're watching xiRAID nodes(s):<br/>\n    ${xiraid_node}\n  </p>\n\n  <div style=\"\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    gap: 1.5rem;\n    margin: 1.5rem 0;\n  \">\n  <img\n      src=\"https://xinnor.io/img/logo-xinnor.svg\"\n      alt=\"Xinnor\"\n      width=\"200\"\n      style=\"display: block;\"\n    >\n  </div>\n\n  <p style=\"\n    text-align: right;\n    font-style: italic;\n    opacity: 0.8;\n    margin-top: 2rem;\n  \">\n    #whenperformancematters\n  </p>\n</div>\n",
         "mode": "html"
       },
       "pluginVersion": "12.0.0",
@@ -887,7 +875,7 @@
   ],
   "schemaVersion": 41,
   "tags": [
-    "E4"
+    "xiRAID"
   ],
   "templating": {
     "list": [

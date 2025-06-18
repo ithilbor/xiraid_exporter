@@ -9,8 +9,8 @@ import (
 	"errors"
 	"log/slog"
 	// Xiraid exporter
-	xrprotos "github.com/ironcub3/xiraid_exporter/protos"
-	xrgrpc "github.com/ironcub3/xiraid_exporter/connections/grpc"
+	xrprotos "github.com/ithilbor/xiraid_exporter/protos"
+	xrgrpc "github.com/ithilbor/xiraid_exporter/connections/grpc"
 	// Kingpin
 	"github.com/alecthomas/kingpin/v2"
 	// Prometheus

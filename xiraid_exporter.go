@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"net/http"
 	// Xiraid exporter
-	"github.com/ironcub3/xiraid_exporter/handlers"
+	"github.com/ithilbor/xiraid_exporter/handlers"
 	// Kingpin
 	"github.com/alecthomas/kingpin/v2"
 	// Prometheus

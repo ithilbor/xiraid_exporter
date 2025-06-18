@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"log/slog"
 	// Xiraid exporter
-	"github.com/ironcub3/xiraid_exporter/collectors"
+	"github.com/ithilbor/xiraid_exporter/collectors"
 	// Prometheus
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
